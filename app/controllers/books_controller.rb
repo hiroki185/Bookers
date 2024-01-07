@@ -13,6 +13,12 @@ class BooksController < ApplicationController
 
   end
 
+  def update
+    book = Book.find(params[:id])
+    book.update(book_params)
+    redirect_to "/books/new"
+  end
+
 
   def index
   end
@@ -25,23 +31,17 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
   end
 
-  def destroy #削除
-    def destroy
+def destroy
     book = Book.find(params[:id])
     book.destroy
-    redirect_to 'books/new'
-   end
-  end
-
-  def update
-    book = Book.find(params[:id])
-    book.update(book_params)
-    redirect_to book_path(book.id)
-  end
+    redirect_to '/books/new'
+end
 
 
   private
+
   def book_params
     params.require(:book).permit(:title, :body)
   end
+
 end
