@@ -6,10 +6,16 @@ class BooksController < ApplicationController
   end
 
   def create #投稿フォーム + 投稿一覧
+        @books = Book.all
 
-    book = Book.new(book_params)
-    book.save
-    redirect_to '/books/new'
+        @book = Book.new(book_params)
+    if @book.save
+      flash[:notice] = "Book was successfully created."
+      redirect_to show_list_path(@book.id)
+    else
+
+      render :new
+    end
 
   end
 
@@ -20,26 +26,27 @@ class BooksController < ApplicationController
   def index
   end
 
-  def show #詳細ページ
-    @book = Book.find(params[:id])
-  end
-
   def edit #編集ページ
     @book = Book.find(params[:id])
+
   end
 
    def update
+
     book = Book.find(params[:id])
     book.update(book_params)
+    flash[:notice] = "Book was successfully created."
     redirect_to show_list_path(book.id)
-  end
+
+   end
 
 
 
 def destroy
     book = Book.find(params[:id])
     book.destroy
-    redirect_to '/books/new'
+    flash[:notice] = "Book was successfully created."
+    redirect_to '/books'
 end
 
 

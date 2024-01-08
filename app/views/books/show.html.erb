@@ -1,11 +1,15 @@
 <!--詳細画面-->
+<div>
+  <%= flash[:notice] %>
+</div>
+
 <p>Title: <%= @book.title %></p>
 <p>Body: <%= @book.body %></p>
 
 <p>
  <%= link_to "Edit", edit_list_path(@book.id) %>
  |
- <a href='/books/new'>Back</a>
+ <a href='/books'>Back</a>
 </p>
 
 
