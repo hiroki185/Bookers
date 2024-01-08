@@ -13,12 +13,9 @@ class BooksController < ApplicationController
 
   end
 
-  def update
-    book = Book.find(params[:id])
-    book.update(book_params)
-    redirect_to "/books/new"
+  def show #詳細ページ
+    @book = Book.find(params[:id])
   end
-
 
   def index
   end
@@ -27,9 +24,17 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
   end
 
-  def edit　#編集ページ
+  def edit #編集ページ
     @book = Book.find(params[:id])
   end
+
+   def update
+    book = Book.find(params[:id])
+    book.update(book_params)
+    redirect_to show_list_path(book.id)
+  end
+
+
 
 def destroy
     book = Book.find(params[:id])
