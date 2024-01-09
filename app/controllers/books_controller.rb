@@ -24,19 +24,26 @@ class BooksController < ApplicationController
   end
 
   def index
+
   end
 
   def edit #編集ページ
     @book = Book.find(params[:id])
-
   end
 
    def update
 
     book = Book.find(params[:id])
+    books = Book.new(book_params)
+
+    if books.save
     book.update(book_params)
     flash[:notice] = "Book was successfully created."
     redirect_to show_list_path(book.id)
+
+    else
+          render :edit
+    end
 
    end
 
