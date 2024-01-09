@@ -11,7 +11,7 @@ class BooksController < ApplicationController
         @book = Book.new(book_params)
     if @book.save
       flash[:notice] = "Book was successfully created."
-      redirect_to show_list_path(@book.id)
+      redirect_to book_path(@book.id)
     else
 
       render :new
@@ -23,23 +23,19 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
   end
 
-  def index
-
-  end
 
   def edit #編集ページ
     @book = Book.find(params[:id])
   end
 
    def update
-
     book = Book.find(params[:id])
-    books = Book.new(book_params)
+    @book = Book.new(book_params)
 
-    if books.save
+    if @book.valid?
     book.update(book_params)
     flash[:notice] = "Book was successfully created."
-    redirect_to show_list_path(book.id)
+    redirect_to book_path(book.id)
 
     else
           render :edit
@@ -48,12 +44,11 @@ class BooksController < ApplicationController
    end
 
 
-
 def destroy
     book = Book.find(params[:id])
     book.destroy
     flash[:notice] = "Book was successfully created."
-    redirect_to '/books'
+    redirect_to '/books/new'
 end
 
 
