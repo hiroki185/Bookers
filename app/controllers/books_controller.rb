@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
 
-  def new  #投稿フォーム + 投稿一覧
+    def index  #投稿フォーム + 投稿一覧
     @book = Book.new
     @books = Book.all
   end
@@ -14,7 +14,7 @@ class BooksController < ApplicationController
       redirect_to book_path(@book.id)
     else
 
-      render :new
+      render :index
     end
 
   end
@@ -29,15 +29,15 @@ class BooksController < ApplicationController
   end
 
    def update
-    book = Book.find(params[:id])
-    @book = Book.new(book_params)
+    @book = Book.find(params[:id])
 
-    if @book.valid?
-    book.update(book_params)
+
+    if @book.update(book_params)
     flash[:notice] = "Book was successfully created."
-    redirect_to book_path(book.id)
+    redirect_to book_path(@book.id)
 
     else
+
           render :edit
     end
 
@@ -46,9 +46,10 @@ class BooksController < ApplicationController
 
 def destroy
     book = Book.find(params[:id])
+
     book.destroy
     flash[:notice] = "Book was successfully created."
-    redirect_to '/books/new'
+    redirect_to books_path
 end
 
 
@@ -59,3 +60,4 @@ end
   end
 
 end
+
